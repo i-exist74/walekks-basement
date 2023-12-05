@@ -14,8 +14,8 @@ namespace WalekksBasement
     [BepInPlugin(modID, pluginName, version)]
     public class PluginMain : BaseUnityPlugin
     {
-        public const string modID = "walekks.basement";
-        public const string pluginName = "Walekk's Basement";
+        public const string modID = "walekks.basement.code";
+        public const string pluginName = "Walekk's Basement Code Stuff";
         public const string version = "1.0.0";
 
         public static RemixOptions options;

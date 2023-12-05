@@ -1,0 +1,10 @@
+{
+  "id": "walekks.basement.code",
+  "name": "Walekk's Basement Code Stuff",
+  "version": "1.0.0",
+  "authors": "WALEKKS BASEMENT TEAM<LINE><LINE>Walekks - Original Concept<LINE><LINE>put everyone here eventually once people start contributing",
+  "description": "code mod for the basement",
+  "requirements": [ "moreslugcats", "crs", "regionkit" ],
+  "requirements_names": [ "More Slugcats Expansion", "Custom Regions Support", "RegionKit" ],
+  "checksum_override_version": true
+}

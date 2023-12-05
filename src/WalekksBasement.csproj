@@ -88,12 +88,12 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateMod" AfterTargets="PostBuildEvent">
     <ItemGroup>
-      <RemovePlugins Include="../final/plugins/*.dll" />
+      <RemovePlugins Include="../codemod/plugins/*.dll" />
     </ItemGroup>
     <ItemGroup>
       <CopyPlugins Include="$(TargetPath)" />
     </ItemGroup>
     <Delete Files="@(RemovePlugins)" />
-    <Copy SourceFiles="@(CopyPlugins)" DestinationFolder="../final/plugins/" />
+    <Copy SourceFiles="@(CopyPlugins)" DestinationFolder="../codemod/plugins/" />
   </Target>
 </Project>
