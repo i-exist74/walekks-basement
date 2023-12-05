@@ -8,7 +8,7 @@ using Menu.Remix.MixedUI;
 using RWCustom;
 using UnityEngine;
 
-namespace TemplateRWMod
+namespace WalekksBasement
 {
     public class RemixOptions : OptionInterface
     {

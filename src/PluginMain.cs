@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace TemplateRWMod
+namespace WalekksBasement
 {
     //[BepInDependency("author.some_other_mods_guid", BepInDependency.DependencyFlags.HardDependency)]
     // to anyone looking at this, please fix the dependencies. i forgot how to set them up properly lmao

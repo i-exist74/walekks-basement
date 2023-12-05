@@ -14,7 +14,7 @@ using UnityEngine;
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
 #pragma warning restore CS0618
 
-namespace TemplateRWMod
+namespace WalekksBasement
 {   
     static class Extras
     {
