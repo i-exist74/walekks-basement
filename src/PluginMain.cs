@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Fisobs.Core;
 
 namespace WalekksBasement
 {
@@ -39,7 +40,7 @@ namespace WalekksBasement
 
         private void LoadResources(RainWorld rainWorld)
         {
-            //obsolete currently
+            Futile.atlasManager.LoadImage("icon_ChargedLantern");
         }
 
         private void RainWorld_OnModsInit(On.RainWorld.orig_OnModsInit orig, RainWorld rainWorld)
@@ -50,7 +51,7 @@ namespace WalekksBasement
             try
             {
                 MachineConnector.SetRegisteredOI(modID, oi);
-
+                Content.Register(new ChargedLanternFisob());
                 //put hooks or whatever here
             }
             catch (Exception ex)
