@@ -148,8 +148,7 @@ namespace WalekksBasement
             {
                 Abstr.fuel = 5;
             }
-            Debug.Log(grabbedBy);
-            if (Abstr.fuel > 0.01f)
+            if (Abstr.fuel > 0.1f)
             {
                 Abstr.fuel -= 0.005f;
             }
