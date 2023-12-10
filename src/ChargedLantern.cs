@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -148,9 +149,9 @@ namespace WalekksBasement
             {
                 Abstr.fuel = 5;
             }
-            if (Abstr.fuel > 0.1f)
+            if (Abstr.fuel > 0.12f)
             {
-                Abstr.fuel -= 0.005f;
+                Abstr.fuel -= 0.001f;
             }
         }
 
@@ -178,7 +179,9 @@ namespace WalekksBasement
             sLeaser.sprites = new FSprite[2];
             sLeaser.sprites[0] = new("icon_ChargedLantern", true);
             sLeaser.sprites[1] = new("Futile_White", true);
-            sLeaser.sprites[1].shader = rCam.game.rainWorld.Shaders["FlatLightBehindTerrain"];
+            sLeaser.sprites[1].shader = rCam.game.rainWorld.Shaders["UnderWaterLight"];
+            //sLeaser.sprites[1].shader = rCam.game.rainWorld.Shaders["FlatLightNoisy"];
+
             //sLeaser.sprites[1] = new FSprite("pixel", true);
             AddToContainer(sLeaser, rCam, null);
         }
@@ -203,6 +206,22 @@ namespace WalekksBasement
                 sLeaser.sprites[i].scaleY *= 0.25f;
                 sLeaser.sprites[i].scaleX *= 0.25f;
             }
+
+            if (grabbedBy.Count == 1)
+            {
+                sLeaser.sprites[0].anchorY = 1.25f;
+                sLeaser.sprites[1].anchorY = 0.65f;
+            }
+            else
+            {
+                sLeaser.sprites[0].anchorY = 0.5f;
+                sLeaser.sprites[1].anchorY = 0.5f;
+            }
+
+            Debug.Log(grabbedBy.Count);
+            
+            sLeaser.sprites[1].scale *= 20f;
+            sLeaser.sprites[1].color = new Color(1, 0, 0);
 
             sLeaser.sprites[0].color = blackColor;
             //sLeaser.sprites[0].scaleY *= 1.175f - Abstr.damage * 0.2f;
