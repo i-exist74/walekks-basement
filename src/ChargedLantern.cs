@@ -140,7 +140,7 @@ namespace WalekksBasement
 
                 if (grabbedBy.Count == 1)
                 {
-                    this.lightSource.setPos = new Vector2(base.firstChunk.pos.x, base.firstChunk.pos.y - 200);
+                    this.lightSource.setPos = new Vector2(base.firstChunk.pos.x, base.firstChunk.pos.y - 300f);
                 }
                 else
                 {
@@ -155,13 +155,14 @@ namespace WalekksBasement
                 }
             }
 
-            if (Abstr.fuel < 0f)
-            {
-                Abstr.fuel = 5;
-            }
             if (Abstr.fuel > 0.12f)
             {
                 Abstr.fuel -= 0.001f;
+            }
+
+            if(Abstr.smoke > 0.005f)
+            {
+                Abstr.smoke -= 0.005f;
             }
         }
 
@@ -186,14 +187,18 @@ namespace WalekksBasement
 
         public override void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
         {
-            sLeaser.sprites = new FSprite[4];
+            sLeaser.sprites = new FSprite[5];
             sLeaser.sprites[0] = new("DangleFruit0B", true);
             sLeaser.sprites[3] = new("DangleFruit0A", true);
             sLeaser.sprites[0].color = Color.red;
             sLeaser.sprites[3].color = Color.white;
             sLeaser.sprites[1] = new("icon_ChargedLantern", true);
             sLeaser.sprites[2] = new("Futile_White", true);
-            sLeaser.sprites[2].shader = rCam.game.rainWorld.Shaders["FlatLightBehindTerrain"]; //steam also looks cool use that later
+            sLeaser.sprites[2].shader = rCam.game.rainWorld.Shaders["FlatWaterLight"]; //steam also looks cool use that later // also also UnderWaterLight looks cool but needs some work to look good
+            sLeaser.sprites[2].color = Color.red;
+            sLeaser.sprites[4] = new("Futile_White", true);
+            sLeaser.sprites[4].shader = rCam.game.rainWorld.Shaders["Steam"];
+            sLeaser.sprites[4].color = Color.red;
             //sLeaser.sprites[1].shader = rCam.game.rainWorld.Shaders["FlatLightNoisy"];
 
             //sLeaser.sprites[1] = new FSprite("pixel", true);
@@ -209,6 +214,8 @@ namespace WalekksBasement
             lastDarkness = darkness;
             darkness = rCam.room.Darkness(pos);
             darkness *= 1f - 0.5f * rCam.room.LightSourceExposure(pos);
+
+            sLeaser.sprites[3].color = new Color(Abstr.fuel, Abstr.fuel, Abstr.fuel);
 
             for (int i = 0; i < sLeaser.sprites.Length; i++)
             {
@@ -226,12 +233,14 @@ namespace WalekksBasement
                 sLeaser.sprites[0].anchorY = 0.9f;
                 sLeaser.sprites[1].anchorY = 0.9f;
                 sLeaser.sprites[3].anchorY = 0.9f;
+                sLeaser.sprites[4].anchorY = 0.9f;
             }
             else
             {
                 sLeaser.sprites[0].anchorY = 0.5f;
                 sLeaser.sprites[1].anchorY = 0.5f;
                 sLeaser.sprites[3].anchorY = 0.5f;
+                sLeaser.sprites[4].anchorY = 0.5f;
             }
 
             sLeaser.sprites[2].SetPosition(sLeaser.sprites[0].GetPosition());
@@ -239,8 +248,9 @@ namespace WalekksBasement
             sLeaser.sprites[0].scale *= 5f;
             sLeaser.sprites[3].scale *= 5f;
             
-            sLeaser.sprites[2].scale *= 25f;
-            sLeaser.sprites[2].color = new Color(1, 0, 0);
+            sLeaser.sprites[2].scale *= 25f * (Abstr.fuel / 2);
+
+            sLeaser.sprites[4].scale *= 10f * Abstr.smoke;
 
             sLeaser.sprites[1].color = blackColor;
             //sLeaser.sprites[0].scaleY *= 1.175f - Abstr.damage * 0.2f;

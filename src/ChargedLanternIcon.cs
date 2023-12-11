@@ -12,7 +12,7 @@ namespace WalekksBasement
     {
         public override int Data(AbstractPhysicalObject apo)
         {
-            return apo is ChargedLanternAbstract chargedLantern ? (int)(chargedLantern.hue * 1000f) : 0;
+            return apo is ChargedLanternAbstract chargedLantern ? (int)(1) : 0;
         }
 
         public override Color SpriteColor(int data)

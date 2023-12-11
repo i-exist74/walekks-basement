@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Fisobs.Core;
+using Smoke;
 
 namespace WalekksBasement
 {
@@ -65,16 +66,27 @@ namespace WalekksBasement
         {
             orig(spear, result, eu);
 
-            Debug.Log(spear.thrownBy.Template.type == CreatureTemplate.Type.Slugcat);
-            Debug.Log(spear.thrownBy.grasps[0].grabbed);
-            Debug.Log(spear.thrownBy.grasps[1].grabbed);
+            Debug.Log("test");
 
             if (spear.thrownBy.Template.type == CreatureTemplate.Type.Slugcat)
             {
-                spear.thrownBy.room.AddObject(new ShockWave(spear.thrownBy.firstChunk.pos, 100, 5, 10));
-                if (spear.thrownBy.grasps[0].grabbed.ToString() == "WalekksBasement.ChargedLantern" || spear.thrownBy.grasps[1].grabbed.ToString() == "WalekksBasement.ChargedLantern")
+                if (spear.thrownBy.grasps[0].grabbed is ChargedLantern)
                 {
-                    Debug.Log("uhhh");
+                    spear.thrownBy.room.AddObject(new ShockWave(spear.thrownBy.firstChunk.pos, 100, 5, 10));
+
+                    var chargedLanternInstance = spear.thrownBy.grasps[0].grabbed.abstractPhysicalObject as ChargedLanternAbstract;
+
+                    chargedLanternInstance.fuel = 5f;
+                    chargedLanternInstance.smoke = 1f;
+                }
+                if (spear.thrownBy.grasps[1].grabbed is ChargedLantern)
+                {
+                    spear.thrownBy.room.AddObject(new ShockWave(spear.thrownBy.firstChunk.pos, 100, 5, 10));
+
+                    var chargedLanternInstance = spear.thrownBy.grasps[1].grabbed.abstractPhysicalObject as ChargedLanternAbstract;
+
+                    chargedLanternInstance.fuel = 5f;
+                    chargedLanternInstance.smoke = 1f;
                 }
             }
         }

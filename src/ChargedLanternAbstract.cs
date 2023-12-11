@@ -6,20 +6,17 @@ namespace WalekksBasement
 {
     public class ChargedLanternAbstract : AbstractPhysicalObject
     {
-        public float hue;
-        public float saturation;
         public float scaleX;
         public float scaleY;
         public float damage;
         public float fuel;
+        public float smoke;
 
         public ChargedLanternAbstract(World world, WorldCoordinate pos, EntityID ID) : base(world, ChargedLanternFisob.ChargedLantern, null, pos, ID)
         {
             scaleX = 1;
             scaleY = 1;
-            saturation = 0.5f;
-            hue = 1f;
-            fuel = -1f;
+            fuel = 5f;
         }
 
         public override void Realize()
@@ -31,7 +28,7 @@ namespace WalekksBasement
 
         public override string ToString()
         {
-            return this.SaveToString($"{hue};{saturation};{scaleX};{scaleY};{damage};{fuel}");
+            return this.SaveToString($"{scaleX};{scaleY};{damage};{fuel};{smoke}");
         }
     }
 }
