@@ -56,11 +56,6 @@ namespace WalekksBasement
 
         public override void Update(bool eu)
         {
-            /*if (Abstr.damage >= 1 && Random.value < 0.015f)
-            {
-                Shatter();
-                return;
-            }*/
 
             ChangeCollisionLayer(grabbedBy.Count == 0 ? 2 : 1);
             firstChunk.collideWithTerrain = grabbedBy.Count == 0;
@@ -159,11 +154,6 @@ namespace WalekksBasement
             {
                 Abstr.fuel -= 0.001f;
             }
-
-            if(Abstr.smoke > 0.005f)
-            {
-                Abstr.smoke -= 0.005f;
-            }
         }
 
         public override void TerrainImpact(int chunk, IntVector2 direction, float speed, bool firstContact)
@@ -187,21 +177,19 @@ namespace WalekksBasement
 
         public override void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
         {
-            sLeaser.sprites = new FSprite[5];
+            sLeaser.sprites = new FSprite[4];
+            //middle of the lantern
             sLeaser.sprites[0] = new("DangleFruit0B", true);
             sLeaser.sprites[3] = new("DangleFruit0A", true);
             sLeaser.sprites[0].color = Color.red;
             sLeaser.sprites[3].color = Color.white;
+            //lantern cage
             sLeaser.sprites[1] = new("icon_ChargedLantern", true);
+            //wavy light thing
             sLeaser.sprites[2] = new("Futile_White", true);
-            sLeaser.sprites[2].shader = rCam.game.rainWorld.Shaders["FlatWaterLight"]; //steam also looks cool use that later // also also UnderWaterLight looks cool but needs some work to look good
+            sLeaser.sprites[2].shader = rCam.game.rainWorld.Shaders["FlatWaterLight"];
             sLeaser.sprites[2].color = Color.red;
-            sLeaser.sprites[4] = new("Futile_White", true);
-            sLeaser.sprites[4].shader = rCam.game.rainWorld.Shaders["Steam"];
-            sLeaser.sprites[4].color = Color.red;
-            //sLeaser.sprites[1].shader = rCam.game.rainWorld.Shaders["FlatLightNoisy"];
 
-            //sLeaser.sprites[1] = new FSprite("pixel", true);
             AddToContainer(sLeaser, rCam, null);
         }
 
@@ -233,14 +221,12 @@ namespace WalekksBasement
                 sLeaser.sprites[0].anchorY = 0.9f;
                 sLeaser.sprites[1].anchorY = 0.9f;
                 sLeaser.sprites[3].anchorY = 0.9f;
-                sLeaser.sprites[4].anchorY = 0.9f;
             }
             else
             {
                 sLeaser.sprites[0].anchorY = 0.5f;
                 sLeaser.sprites[1].anchorY = 0.5f;
                 sLeaser.sprites[3].anchorY = 0.5f;
-                sLeaser.sprites[4].anchorY = 0.5f;
             }
 
             sLeaser.sprites[2].SetPosition(sLeaser.sprites[0].GetPosition());
@@ -249,8 +235,6 @@ namespace WalekksBasement
             sLeaser.sprites[3].scale *= 5f;
             
             sLeaser.sprites[2].scale *= 25f * (Abstr.fuel / 2);
-
-            sLeaser.sprites[4].scale *= 10f * Abstr.smoke;
 
             sLeaser.sprites[1].color = blackColor;
             //sLeaser.sprites[0].scaleY *= 1.175f - Abstr.damage * 0.2f;
@@ -287,6 +271,7 @@ namespace WalekksBasement
             {
                 fsprite.RemoveFromContainer();
             }
+
             rCam.ReturnFContainer("Water").AddChild(sLeaser.sprites[2]);
             newContainer.AddChild(sLeaser.sprites[3]);
             newContainer.AddChild(sLeaser.sprites[0]);

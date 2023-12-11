@@ -10,7 +10,6 @@ namespace WalekksBasement
         public float scaleY;
         public float damage;
         public float fuel;
-        public float smoke;
 
         public ChargedLanternAbstract(World world, WorldCoordinate pos, EntityID ID) : base(world, ChargedLanternFisob.ChargedLantern, null, pos, ID)
         {
@@ -22,13 +21,12 @@ namespace WalekksBasement
         public override void Realize()
         {
             base.Realize();
-            if (realizedObject == null)
-                realizedObject = new ChargedLantern(this, Room.realizedRoom.MiddleOfTile(pos.Tile), Vector2.zero);
+            realizedObject ??= new ChargedLantern(this, Room.realizedRoom.MiddleOfTile(pos.Tile), Vector2.zero);
         }
 
         public override string ToString()
         {
-            return this.SaveToString($"{scaleX};{scaleY};{damage};{fuel};{smoke}");
+            return this.SaveToString($"{scaleX};{scaleY};{damage};{fuel}");
         }
     }
 }

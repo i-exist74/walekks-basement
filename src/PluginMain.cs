@@ -66,8 +66,6 @@ namespace WalekksBasement
         {
             orig(spear, result, eu);
 
-            Debug.Log("test");
-
             if (spear.thrownBy.Template.type == CreatureTemplate.Type.Slugcat)
             {
                 if (spear.thrownBy.grasps[0].grabbed is ChargedLantern)
@@ -77,7 +75,6 @@ namespace WalekksBasement
                     var chargedLanternInstance = spear.thrownBy.grasps[0].grabbed.abstractPhysicalObject as ChargedLanternAbstract;
 
                     chargedLanternInstance.fuel = 5f;
-                    chargedLanternInstance.smoke = 1f;
                 }
                 if (spear.thrownBy.grasps[1].grabbed is ChargedLantern)
                 {
@@ -86,7 +83,6 @@ namespace WalekksBasement
                     var chargedLanternInstance = spear.thrownBy.grasps[1].grabbed.abstractPhysicalObject as ChargedLanternAbstract;
 
                     chargedLanternInstance.fuel = 5f;
-                    chargedLanternInstance.smoke = 1f;
                 }
             }
         }
