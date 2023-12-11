@@ -65,8 +65,8 @@ namespace WalekksBasement
         private void Spear_LodgeInCreature(On.Spear.orig_LodgeInCreature orig, Spear spear, SharedPhysics.CollisionResult result, bool eu)
         {
             orig(spear, result, eu);
-
-            if (spear.thrownBy.Template.type == CreatureTemplate.Type.Slugcat)
+            var targetCreature = result.obj as Creature;
+            if (spear.thrownBy.Template.type == CreatureTemplate.Type.Slugcat && targetCreature.dead == false)
             {
                 if (spear.thrownBy.grasps[0].grabbed is ChargedLantern)
                 {

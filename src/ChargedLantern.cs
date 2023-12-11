@@ -135,7 +135,7 @@ namespace WalekksBasement
 
                 if (grabbedBy.Count == 1)
                 {
-                    this.lightSource.setPos = new Vector2(base.firstChunk.pos.x, base.firstChunk.pos.y - 300f);
+                    this.lightSource.setPos = new Vector2(base.firstChunk.pos.x, base.firstChunk.pos.y - 20f);
                 }
                 else
                 {
