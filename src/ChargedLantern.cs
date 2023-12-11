@@ -137,6 +137,16 @@ namespace WalekksBasement
             else
             {
                 this.lightSource.setPos = new Vector2?(base.firstChunk.pos);
+
+                if (grabbedBy.Count == 1)
+                {
+                    this.lightSource.setPos = new Vector2(base.firstChunk.pos.x, base.firstChunk.pos.y - 200);
+                }
+                else
+                {
+                    this.lightSource.setPos = new Vector2?(base.firstChunk.pos);
+                }
+
                 this.lightSource.setRad = (300f * Abstr.fuel) * Random.Range(1, 1.2f);
                 this.lightSource.setAlpha = new float?(1f);
                 if (this.lightSource.slatedForDeletetion || this.lightSource.room != this.room)
@@ -176,10 +186,14 @@ namespace WalekksBasement
 
         public override void InitiateSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
         {
-            sLeaser.sprites = new FSprite[2];
-            sLeaser.sprites[0] = new("icon_ChargedLantern", true);
-            sLeaser.sprites[1] = new("Futile_White", true);
-            sLeaser.sprites[1].shader = rCam.game.rainWorld.Shaders["UnderWaterLight"];
+            sLeaser.sprites = new FSprite[4];
+            sLeaser.sprites[0] = new("DangleFruit0B", true);
+            sLeaser.sprites[3] = new("DangleFruit0A", true);
+            sLeaser.sprites[0].color = Color.red;
+            sLeaser.sprites[3].color = Color.white;
+            sLeaser.sprites[1] = new("icon_ChargedLantern", true);
+            sLeaser.sprites[2] = new("Futile_White", true);
+            sLeaser.sprites[2].shader = rCam.game.rainWorld.Shaders["FlatLightBehindTerrain"]; //steam also looks cool use that later
             //sLeaser.sprites[1].shader = rCam.game.rainWorld.Shaders["FlatLightNoisy"];
 
             //sLeaser.sprites[1] = new FSprite("pixel", true);
@@ -189,7 +203,7 @@ namespace WalekksBasement
         public override void DrawSprites(RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, float timeStacker, Vector2 camPos)
         {
             Vector2 pos = Vector2.Lerp(firstChunk.lastPos, firstChunk.pos, timeStacker);
-            float num = Mathf.InverseLerp(305f, 380f, timeStacker);
+            float num = Mathf.InverseLerp(305f, 380f, timeStacker);  
             pos.y -= 20f * Mathf.Pow(num, 3f);
             float num2 = Mathf.Pow(1f - num, 0.25f);
             lastDarkness = darkness;
@@ -209,21 +223,26 @@ namespace WalekksBasement
 
             if (grabbedBy.Count == 1)
             {
-                sLeaser.sprites[0].anchorY = 1.25f;
-                sLeaser.sprites[1].anchorY = 0.65f;
+                sLeaser.sprites[0].anchorY = 0.9f;
+                sLeaser.sprites[1].anchorY = 0.9f;
+                sLeaser.sprites[3].anchorY = 0.9f;
             }
             else
             {
                 sLeaser.sprites[0].anchorY = 0.5f;
                 sLeaser.sprites[1].anchorY = 0.5f;
+                sLeaser.sprites[3].anchorY = 0.5f;
             }
 
-            Debug.Log(grabbedBy.Count);
-            
-            sLeaser.sprites[1].scale *= 20f;
-            sLeaser.sprites[1].color = new Color(1, 0, 0);
+            sLeaser.sprites[2].SetPosition(sLeaser.sprites[0].GetPosition());
 
-            sLeaser.sprites[0].color = blackColor;
+            sLeaser.sprites[0].scale *= 5f;
+            sLeaser.sprites[3].scale *= 5f;
+            
+            sLeaser.sprites[2].scale *= 25f;
+            sLeaser.sprites[2].color = new Color(1, 0, 0);
+
+            sLeaser.sprites[1].color = blackColor;
             //sLeaser.sprites[0].scaleY *= 1.175f - Abstr.damage * 0.2f;
             //sLeaser.sprites[0].scaleX *= 1.175f - Abstr.damage * 0.2f;
 
@@ -231,11 +250,11 @@ namespace WalekksBasement
 
             if (blink > 0 && Rand < 0.5f)
             {
-                sLeaser.sprites[0].color = blinkColor;
+                sLeaser.sprites[1].color = blinkColor;
             }
             else if (num > 0.3f)
             {
-                sLeaser.sprites[0].color = Color.Lerp(sLeaser.sprites[0].color, earthColor, Mathf.Pow(Mathf.InverseLerp(0.3f, 1f, num), 1.6f));
+                sLeaser.sprites[1].color = Color.Lerp(sLeaser.sprites[0].color, earthColor, Mathf.Pow(Mathf.InverseLerp(0.3f, 1f, num), 1.6f));
             }
 
             if (slatedForDeletetion || room != rCam.room)
@@ -257,8 +276,11 @@ namespace WalekksBasement
             foreach (FSprite fsprite in sLeaser.sprites)
             {
                 fsprite.RemoveFromContainer();
-                newContainer.AddChild(fsprite);
             }
+            rCam.ReturnFContainer("Water").AddChild(sLeaser.sprites[2]);
+            newContainer.AddChild(sLeaser.sprites[3]);
+            newContainer.AddChild(sLeaser.sprites[0]);
+            newContainer.AddChild(sLeaser.sprites[1]);
         }
     }
 }

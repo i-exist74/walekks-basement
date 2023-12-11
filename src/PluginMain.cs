@@ -52,11 +52,30 @@ namespace WalekksBasement
             {
                 MachineConnector.SetRegisteredOI(modID, oi);
                 Content.Register(new ChargedLanternFisob());
-                //put hooks or whatever here
+
+                On.Spear.LodgeInCreature += Spear_LodgeInCreature;
             }
             catch (Exception ex)
             {
                 Debug.LogException(ex);
+            }
+        }
+
+        private void Spear_LodgeInCreature(On.Spear.orig_LodgeInCreature orig, Spear spear, SharedPhysics.CollisionResult result, bool eu)
+        {
+            orig(spear, result, eu);
+
+            Debug.Log(spear.thrownBy.Template.type == CreatureTemplate.Type.Slugcat);
+            Debug.Log(spear.thrownBy.grasps[0].grabbed);
+            Debug.Log(spear.thrownBy.grasps[1].grabbed);
+
+            if (spear.thrownBy.Template.type == CreatureTemplate.Type.Slugcat)
+            {
+                spear.thrownBy.room.AddObject(new ShockWave(spear.thrownBy.firstChunk.pos, 100, 5, 10));
+                if (spear.thrownBy.grasps[0].grabbed.ToString() == "WalekksBasement.ChargedLantern" || spear.thrownBy.grasps[1].grabbed.ToString() == "WalekksBasement.ChargedLantern")
+                {
+                    Debug.Log("uhhh");
+                }
             }
         }
     }
