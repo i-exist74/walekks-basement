@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "authors": "WALEKKS BASEMENT TEAM<LINE><LINE>Walekks - Original Concept<LINE><LINE>put everyone here eventually once people start contributing",
   "description": "code mod for the basement",
-  "requirements": [ "moreslugcats", "crs", "regionkit" ],
-  "requirements_names": [ "More Slugcats Expansion", "Custom Regions Support", "RegionKit" ],
+  "requirements": [ "moreslugcats", "crs", "regionkit", "fisobs" ],
+  "requirements_names": [ "More Slugcats Expansion", "Custom Regions Support", "RegionKit", "Fisobs" ],
   "checksum_override_version": true
 }
