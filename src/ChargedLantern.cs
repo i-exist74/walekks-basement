@@ -142,7 +142,7 @@ namespace WalekksBasement
                     this.lightSource.setPos = new Vector2?(base.firstChunk.pos);
                 }
 
-                this.lightSource.setRad = (300f * Abstr.fuel) * Random.Range(1, 1.2f);
+                this.lightSource.setRad = (150f * Abstr.fuel) * Random.Range(1, 1.2f);
                 this.lightSource.setAlpha = new float?(1f);
                 if (this.lightSource.slatedForDeletetion || this.lightSource.room != this.room)
                 {
@@ -237,10 +237,6 @@ namespace WalekksBasement
             sLeaser.sprites[2].scale *= 25f * (Abstr.fuel / 2);
 
             sLeaser.sprites[1].color = blackColor;
-            //sLeaser.sprites[0].scaleY *= 1.175f - Abstr.damage * 0.2f;
-            //sLeaser.sprites[0].scaleX *= 1.175f - Abstr.damage * 0.2f;
-
-            //sLeaser.sprites[1].shader = rCam.room.game.rainWorld.Shaders["EnergyCell"];
 
             if (blink > 0 && Rand < 0.5f)
             {
